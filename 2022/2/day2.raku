@@ -1,33 +1,17 @@
-our %ops = Map.new('A', 'Y', 'B', 'Z', 'C', 'X');
+our %ops = Map.new('A', 1, 'B', 2, 'C', 3,
+				   'X', 1, 'Y', 2, 'Z', 3);
 
-sub calculate(@move) {
-	my $score = 0;
-	
-	if (@move[0].ord - @move[1].ord).abs eq 23 {
-		$score += 3;
-	}
-
-	if %ops{@move[0]} eq @move[1] {
-		$score += 6;
-	}
-
-	return $score + (@move[1].ord - 87);
+sub calculate(Int $i, Int $j) {
+	if $i eq $j { return 3 + $j; }
+	if ($j % 3) + 1 eq $i { return $j; }
+	return 6 + $j;
 }
 
-sub calculate2(@move) {
-	if @move[1] eq 'Y' {
-		return 3 + (@move[0].ord - 64);
-	}
-
-	if @move[1] eq 'X' {
-		return (@move[0].ord % 3) + 1;
-	}
-
-	return 6 + %ops{@move[0]}.ord - 87;
-}
+my @hands = "input.txt".IO.slurp.chomp.split("\n")>>.split(" ").map({ (%ops{@^a[0]}, %ops{@^a[1]}) });
 
 # Part 1 (14531)
-say "input.txt".IO.slurp.chomp.split("\n")>>.split(" ").map(&calculate).sum;
+@hands>>.reduce(&calculate).sum.say;
 
 # Part 2 (11258)
-say "input.txt".IO.slurp.chomp.split("\n")>>.split(" ").map(&calculate2).sum;
+say (1 + 2 % 3) % 3 + 1 + 3 * (2 - 1);
+say @hands>>.reduce({ ($^a + $^b % 3) % 3 + 1 + 3 * ($^b - 1) }).sum;
