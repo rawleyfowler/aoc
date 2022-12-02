@@ -13,5 +13,4 @@ my @hands = "input.txt".IO.slurp.chomp.split("\n")>>.split(" ").map({ (%ops{@^a[
 @hands>>.reduce(&calculate).sum.say;
 
 # Part 2 (11258)
-say (1 + 2 % 3) % 3 + 1 + 3 * (2 - 1);
 say @hands>>.reduce({ ($^a + $^b % 3) % 3 + 1 + 3 * ($^b - 1) }).sum;
