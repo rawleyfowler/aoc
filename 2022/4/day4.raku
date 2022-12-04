@@ -7,14 +7,12 @@ sub range_contains($left, $right) {
 	return ($left ~~ $right) || ($right ~~ $left);
 }
 
-sub overlap($left, $right) {
-	for $left.List -> $val {
-		if $val ~~ $right {
-			return True;
-		}
+sub overlap($left, $right, $recur = True) {
+	my $t = $left.min < $right.max && $left.max > $right.min;
+	if $recur {
+		return $t || overlap($left, $right, False);
 	}
-
-	return False;
+	return $t;
 }
 
 # Part 1 (462)

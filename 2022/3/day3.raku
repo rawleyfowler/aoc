@@ -21,14 +21,4 @@ sub find_common(@input) {
 @lines.map({ ($^a.substr(0..($^a.chars/2) - 1), $^a.substr($^a.chars/2..*)) }).map({ ($^a[0].split("", :skip-empty), $^a[1].split("", :skip-empty)) }).map(&find_common).sum.say;
 
 # Part 2 (2434)
-my @third_lines = List.new(Array.new(@lines[0]));
-for @lines[1..*] -> $line {
-	my $i = @third_lines.elems - 1;
-	if @third_lines[$i].elems < 3 {
-		@third_lines[$i].push($line);
-	} else {
-		@third_lines.push(Array.new($line));
-	}
-}
-
-@third_lines.map({ $^a.map(*.split("", :skip-empty)) }).map(&find_common).sum.say;
+@lines.batch(3).map({ $^a.map(*.split("", :skip-empty)) }).map(&find_common).sum.say;
