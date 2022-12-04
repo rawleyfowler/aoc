@@ -17,14 +17,10 @@ sub find_common(@input) {
 	return 0;
 }
 
-sub group_every_three($) {
-	
-}
-
 # Part 1 (8515)
 @lines.map({ ($^a.substr(0..($^a.chars/2) - 1), $^a.substr($^a.chars/2..*)) }).map({ ($^a[0].split("", :skip-empty), $^a[1].split("", :skip-empty)) }).map(&find_common).sum.say;
 
-# Part 2
+# Part 2 (2434)
 my @third_lines = List.new(Array.new(@lines[0]));
 for @lines[1..*] -> $line {
 	my $i = @third_lines.elems - 1;
