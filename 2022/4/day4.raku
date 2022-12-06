@@ -18,7 +18,7 @@ sub overlap($left, $right) {
 }
 
 # Part 1 (462)
-@ranges>>.map(&range_contains).map(*[0]).sum.say;
+@ranges>>.map(&range_contains).flat.sum.say;
 
 # Part 2 (835)
-@ranges>>.map(&overlap).map(*[0]).sum.say;
+@ranges>>.map(&overlap).flat.sum.say;
