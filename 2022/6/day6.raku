@@ -17,5 +17,5 @@ my @text = 'input.txt'.IO.slurp.chomp;
 # Part 1 (1779)
 my $p1 = find_unique_seq(@text, 4).tail.value.succ.say;
 
-# Part 2 (
+# Part 2 (2635)
 find_unique_seq(@text, 14).tail.value.succ.say;
