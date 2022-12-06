@@ -7,8 +7,7 @@ sub run_instructions(@instructions, @crates, $batches = 1) {
 		my $from = @op[1] - 1;
 		my $to = @op[2] - 1;
 		if $batches != 1 {
-			@crates[$to].append(@crates[$from].tail($val));
-			@crates[$from].pop for ^$val;
+			@crates[$to].append((@crates[$from].pop for ^$val).reverse);
 		} else {
 			@crates[$to].push(@crates[$from].pop) for ^@op[0];
 		}
@@ -25,6 +24,6 @@ my @crates = @sanitized_crates.tail.comb(/\d+/).map({ @sanitized_crates.tail.ind
 # Part 1 (SVFDLGLWV)
 say [~] run_instructions(@instructions, @crates.clone.map({ .Array.clone })).map({ .tail });
 
-# Part 2
+# Part 2 (DCVTCVPCL)
 say [~] run_instructions(@instructions, @crates.clone.map({ .Array.clone }), 3).map({ .tail });
 
