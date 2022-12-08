@@ -41,7 +41,6 @@ sub is_interior_visible(Int $i, Int $j, @grid, Tree $value) {
 				if $v < @grid.elems - 1 {
 					$value.distance_down += @grid[$v][$j].distance_down;
 				}
-				
 				$value.visible_down = True;
 				last;
 			}
@@ -77,9 +76,7 @@ sub is_interior_visible(Int $i, Int $j, @grid, Tree $value) {
 				if $l < @grid[$i].elems - 1 {
 					$value.distance_right += @grid[$i][$l].distance_right;
 				}
-				
 				$value.visible_right = True;
-				
 				last;
 			}
 		} else {
@@ -104,10 +101,6 @@ sub handle_edges(@grid) {
 		}
 		$i++;
 	}
-}
-
-sub calculate_scenic_score(@grid) {
-
 }
 
 handle_edges(@grid);
