@@ -16,7 +16,7 @@ sub run_instructions(@instructions, @crates, $batches = 1) {
 	return @crates;
 }
 
-my @raw = 'input.txt'.IO.slurp.chomp.split("\n\n");
+my @raw = 'bigboy.txt'.IO.slurp.chomp.split("\n\n");
 my @instructions = @raw[1].split("\n").map({ $^a.comb(/\d+/).map({ .Int }) });
 my @sanitized_crates = @raw[0].split("\n");
 my @crates = @sanitized_crates.tail.comb(/\d+/).map({ @sanitized_crates.tail.index($^a) }).map({ @sanitized_crates.map( *.split("", :skip-empty)[$^a] ).grep(/<[A..Za..z]>/).reverse.List }).List;
@@ -26,4 +26,3 @@ say [~] run_instructions(@instructions, @crates.clone.map({ .Array.clone })).map
 
 # Part 2 (DCVTCVPCL)
 say [~] run_instructions(@instructions, @crates.clone.map({ .Array.clone }), 3).map({ .tail });
-
